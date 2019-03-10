@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title> </title>
+        <meta charset="utf-8" />
+        <link href="movies_webapp_style.css" rel="stylesheet" />
+    </head>
+    <body>
+        <header></header>
+        <div id="search-div">
+            <form>
+                <div id="autocomplete">
+                    <input
+                        id="search-text"
+                        list="theatres"
+                        name="search"
+                        placeholder="Search"
+                        autocomplete="off"
+                        onkeyup="generateSuggestions(); showSuggestions()"
+                    >
+                        <datalist id="theatres"></datalist>
+                    </input>
+                </div>
+            </form>
+            <input type="date" name="date" id="date">
+            <br>
+            <button id="search-button" value="Search" onclick="generateResults(); showResults()">
+                Search
+            </button>
+        </div>
+        <div id="search-results">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="search-results-table">
+
+                </tbody>
+            </table>
+        </div>
+    </body>
+    <script src="movies_webapp_script.js"></script>
+</html>

@@ -1,0 +1,12 @@
+input {
+    margin: 1em;
+}
+select {
+    margin: 1em;
+}
+#autocomplete {
+    position: relative;
+}
+#search-button {
+    margin: 1em;
+}
