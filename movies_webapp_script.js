@@ -7,7 +7,6 @@ var xmlhttp = new XMLHttpRequest();
 xmlhttp.open("GET", "http://www.finnkino.fi/xml/TheatreAreas/", true);
 xmlhttp.send();
 xmlhttp.onreadystatechange = function() {
-
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         var theatreIdElements = [];
         var theatreNameElements = [];
@@ -33,67 +32,104 @@ xmlhttp.onreadystatechange = function() {
     }
 };
 
-/* Takes inputs from the search and date fields as parameters and parses them into a 
-XMLHttp request url that gets the schedule for a given theatre and day. */
-function getShows(theatreName, date) {
-    var xmlhttp2 = new XMLHttpRequest();
-    var dateFormat =
-        date.substr(8, 2) + "." + date.substr(5, 2) + "." + date.substr(0, 4);
-    var id;
-    for (let i = 0; i < theatreList.length; i++) {
-        if (theatreName == theatreList[i].name) {
-            id = theatreList[i].id;
-            break;
-        }
+function getShows() {
+    var theatreName = document.getElementById("search-text").value;
+    var date = document.getElementById("date").value;
+
+    if (theatreName == "" || date == "") {
+        document.getElementById("search-results").innerHTML =
+            "<p>Please enter both the theatre and a date to search for shows</p>";
+        return;
     }
 
-    var xmlurl =
-        "https://www.finnkino.fi/xml/Schedule/?area=" +
-        id +
-        "&dt=" +
-        dateFormat;
-
-    xmlhttp2.open("GET", xmlurl, true);
-    xmlhttp2.send();
-    xmlhttp2.onreadystatechange = function() {
-        if (xmlhttp2.readyState == 4 && xmlhttp2.status == 200) {
-            shows = [];
-
-            var titleElements = [];
-            var yearElements = [];
-            var startTimeElements = [];
-            var theatreElements = [];
-
-            var xmlDoc2 = xmlhttp2.responseXML;
-            titleElements = xmlDoc2.getElementsByTagName("Title");
-            yearElements = xmlDoc2.getElementsByTagName("ProductionYear");
-            theatreElements = xmlDoc2.getElementsByTagName("Theatre");
-            startTimeElements = xmlDoc2.getElementsByTagName("dttmShowStart");
-
-            var titles = [];
-            var years = [];
-            var theatres = [];
-            var startTimes = [];
-
-            for (var i = 0; i < titleElements.length; i++) {
-                titles.push(titleElements[i].childNodes[0].nodeValue);
-                years.push(yearElements[i].childNodes[0].nodeValue);
-                theatres.push(theatreElements[i].childNodes[0].nodeValue);
-                startTimes.push(startTimeElements[i].childNodes[0].nodeValue);
+    for (var i = 0; i < theatreList.length; i++) {
+        if (theatreName == theatreList[i].name) {
+            var xmlhttp2 = new XMLHttpRequest();
+            var dateFormat =
+                date.substr(8, 2) +
+                "." +
+                date.substr(5, 2) +
+                "." +
+                date.substr(0, 4);
+            var id;
+            for (let i = 0; i < theatreList.length; i++) {
+                if (theatreName == theatreList[i].name) {
+                    id = theatreList[i].id;
+                    break;
+                }
             }
 
-            for (var i = 0; i < titles.length; i++) {
-                var scheduledShow = {
-                    movieTitle: titles[i],
-                    year: years[i],
-                    theatre: theatres[i],
-                    startTime: startTimes[i].substr(11, 5)
-                };
-                shows.push(scheduledShow);
-            }
+            var xmlurl =
+                "https://www.finnkino.fi/xml/Schedule/?area=" +
+                id +
+                "&dt=" +
+                dateFormat;
+
+            xmlhttp2.open("GET", xmlurl, true);
+            xmlhttp2.send();
+            xmlhttp2.onreadystatechange = function() {
+                if (xmlhttp2.readyState == 4 && xmlhttp2.status == 200) {
+                    shows = [];
+                    document.getElementById("search-results-table").innerHTML = "";
+
+                    var titleElements = [];
+                    var yearElements = [];
+                    var startTimeElements = [];
+                    var theatreElements = [];
+
+                    var xmlDoc2 = xmlhttp2.responseXML;
+                    titleElements = xmlDoc2.getElementsByTagName("Title");
+                    yearElements = xmlDoc2.getElementsByTagName(
+                        "ProductionYear"
+                    );
+                    theatreElements = xmlDoc2.getElementsByTagName("Theatre");
+                    startTimeElements = xmlDoc2.getElementsByTagName(
+                        "dttmShowStart"
+                    );
+
+                    var titles = [];
+                    var years = [];
+                    var theatres = [];
+                    var startTimes = [];
+
+                    for (var i = 0; i < titleElements.length; i++) {
+                        titles.push(titleElements[i].childNodes[0].nodeValue);
+                        years.push(yearElements[i].childNodes[0].nodeValue);
+                        theatres.push(
+                            theatreElements[i].childNodes[0].nodeValue
+                        );
+                        startTimes.push(
+                            startTimeElements[i].childNodes[0].nodeValue
+                        );
+                    }
+
+                    for (var i = 0; i < titles.length; i++) {
+                        var scheduledShow = {
+                            movieTitle: titles[i],
+                            year: years[i],
+                            theatre: theatres[i],
+                            startTime: startTimes[i].substr(11, 5)
+                        };
+                        shows.push(scheduledShow);
+                    }
+                    for (var i = 0; i < shows.length; i++) {
+                        document.getElementById("search-results-table").innerHTML +=
+                            "<tr><td>" +
+                            shows[i].startTime +
+                            "</td><td>" +
+                            shows[i].movieTitle +
+                            "</td><td>" +
+                            shows[i].year +
+                            "</td></tr>";
+                    }
+                }
+            };
+            console.log("getShows is ran");
+            return;
         }
-    };
-    console.log("getShows is ran");
+    }
+    document.getElementById("search-results").innerHTML =
+        "<p>Please enter a valid theatre name</p>";
 }
 
 //Generates the list of search suggestions based on written input (for example "esp" -> Espoo, Espoo: OMENA, Espoo: Sello)
@@ -131,31 +167,4 @@ function showSuggestions() {
     for (var i = 0; i < suggestions.length; i++) {
         results.innerHTML += "<option value='" + suggestions[i].name + "'>";
     }
-}
-
-function generateResults() {
-    var searchTheatre = document.getElementById("search-text");
-    var searchDate = document.getElementById("date");
-
-    if (searchTheatre.value == "" || searchDate.value == "") {
-        document.getElementById("search-results").innerHTML =
-            "<p>Please enter both the theatre and a date to search for shows</p>";
-        return;
-    }
-    for (var i = 0; i < theatreList.length; i++) {
-        if (searchTheatre.value == theatreList[i].name) {
-            getShows(searchTheatre.value, searchDate.value);
-            console.log("generateResults is ran");
-            return;
-        }
-    }
-    document.getElementById("search-results").innerHTML =
-        "<p>Please enter a valid theatre name</p>";
-}
-
-function showResults() {
-    for (var i = 0; i < shows.length; i++) {
-        document.getElementById("search-results-table").innerHTML += "<tr><td>" + shows[i].startTime + "</td><td>" + shows[i].movieTitle + "</td><td>" + shows[i].year + "</td></tr>";
-    }
-    console.log("showResults is ran");
 }
