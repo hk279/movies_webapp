@@ -147,7 +147,7 @@ function getShows() {
                         document.getElementById(
                             "search-results-table"
                         ).innerHTML +=
-                            "<tr><td>" +
+                            "<tr><td class='start-time'>" +
                             shows[i].startTime +
                             "</td><td>" +
                             shows[i].movieTitle +

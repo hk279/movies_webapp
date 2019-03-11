@@ -1,3 +1,13 @@
+body {
+    font-family: 'Raleway', sans-serif;
+    background: #475F55;
+}
+#search-div {
+    background: #98A680;
+}
+#search-results {
+    background: #98A680;
+}
 input {
     margin: 1em;
 }
@@ -9,4 +19,11 @@ select {
 }
 #search-button {
     margin: 1em;
+}
+td {
+    padding: 1em;
+}
+.start-time {
+    font-size: 1.5em;
+    font-weight: bold;
 }
