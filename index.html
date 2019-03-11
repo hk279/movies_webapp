@@ -5,7 +5,7 @@
         <meta charset="utf-8" />
         <link href="movies_webapp_style.css" rel="stylesheet" />
     </head>
-    <body>
+    <body onload="generateSuggestions()">
         <header></header>
         <div id="search-div">
             <form>
@@ -16,7 +16,7 @@
                         name="search"
                         placeholder="Search"
                         autocomplete="off"
-                        onkeyup="generateSuggestions(); showSuggestions()"
+                        onkeyup="generateSuggestions()"
                     >
                         <datalist id="theatres"></datalist>
                     </input>
@@ -24,7 +24,7 @@
             </form>
             <input type="date" name="date" id="date">
             <br>
-            <button id="search-button" value="Search" onclick="getShows();">
+            <button id="search-button" value="Search" onclick="getShows()">
                 Search
             </button>
         </div>

@@ -7,7 +7,7 @@ var xmlhttp = new XMLHttpRequest();
 xmlhttp.open("GET", "http://www.finnkino.fi/xml/TheatreAreas/", true);
 xmlhttp.send();
 xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
         var theatreIdElements = [];
         var theatreNameElements = [];
 
@@ -29,8 +29,36 @@ xmlhttp.onreadystatechange = function() {
             };
             theatreList.push(theatre);
         }
+        generateSuggestions();
     }
 };
+
+//Generates the list of search suggestions based on written input (for example "esp" -> Espoo, Espoo: OMENA, Espoo: Sello)
+function generateSuggestions() {
+    var str = document.getElementById("search-text").value.toLowerCase();
+
+    //Empties and then repopulates the suggestions array with all theaters
+    suggestions = [];
+    for (let i = 0; i < theatreList.length; i++) {
+        suggestions.push(theatreList[i]);
+    }
+
+    //Iterates the suggestions array and removes the elements whose name doesn't start with the entered search string
+    for (let j = 0; j < suggestions.length; j++) {
+        if (str != suggestions[j].name.substring(0, str.length).toLowerCase()) {
+            suggestions.splice(j, 1);
+            j--;
+        }
+    }
+
+    //Inserts the search suggestions into the datalist
+    var results = document.getElementById("theatres");
+    results.innerHTML = "";
+
+    for (var i = 0; i < suggestions.length; i++) {
+        results.innerHTML += "<option value='" + suggestions[i].name + "'>";
+    }
+}
 
 function getShows() {
     var theatreName = document.getElementById("search-text").value;
@@ -68,19 +96,20 @@ function getShows() {
             xmlhttp2.open("GET", xmlurl, true);
             xmlhttp2.send();
             xmlhttp2.onreadystatechange = function() {
-                if (xmlhttp2.readyState == 4 && xmlhttp2.status == 200) {
+                if (xmlhttp2.readyState === 4 && xmlhttp2.status === 200) {
                     shows = [];
-                    document.getElementById("search-results-table").innerHTML = "";
+                    document.getElementById("search-results-table").innerHTML =
+                        "";
 
                     var titleElements = [];
-                    var yearElements = [];
                     var startTimeElements = [];
                     var theatreElements = [];
+                    var imageElements = [];
 
                     var xmlDoc2 = xmlhttp2.responseXML;
                     titleElements = xmlDoc2.getElementsByTagName("Title");
-                    yearElements = xmlDoc2.getElementsByTagName(
-                        "ProductionYear"
+                    imageElements = xmlDoc2.getElementsByTagName(
+                        "EventSmallImagePortrait"
                     );
                     theatreElements = xmlDoc2.getElementsByTagName("Theatre");
                     startTimeElements = xmlDoc2.getElementsByTagName(
@@ -88,13 +117,15 @@ function getShows() {
                     );
 
                     var titles = [];
-                    var years = [];
+                    var imageUrls = [];
                     var theatres = [];
                     var startTimes = [];
 
                     for (var i = 0; i < titleElements.length; i++) {
                         titles.push(titleElements[i].childNodes[0].nodeValue);
-                        years.push(yearElements[i].childNodes[0].nodeValue);
+                        imageUrls.push(
+                            imageElements[i].childNodes[0].nodeValue
+                        );
                         theatres.push(
                             theatreElements[i].childNodes[0].nodeValue
                         );
@@ -106,65 +137,29 @@ function getShows() {
                     for (var i = 0; i < titles.length; i++) {
                         var scheduledShow = {
                             movieTitle: titles[i],
-                            year: years[i],
+                            imageUrl: imageUrls[i],
                             theatre: theatres[i],
                             startTime: startTimes[i].substr(11, 5)
                         };
                         shows.push(scheduledShow);
                     }
                     for (var i = 0; i < shows.length; i++) {
-                        document.getElementById("search-results-table").innerHTML +=
+                        document.getElementById(
+                            "search-results-table"
+                        ).innerHTML +=
                             "<tr><td>" +
                             shows[i].startTime +
                             "</td><td>" +
                             shows[i].movieTitle +
-                            "</td><td>" +
-                            shows[i].year +
-                            "</td></tr>";
+                            "</td><td><img src='" +
+                            shows[i].imageUrl + 
+                            "'></img></td></tr>";
                     }
                 }
             };
-            console.log("getShows is ran");
             return;
         }
     }
     document.getElementById("search-results").innerHTML =
         "<p>Please enter a valid theatre name</p>";
-}
-
-//Generates the list of search suggestions based on written input (for example "esp" -> Espoo, Espoo: OMENA, Espoo: Sello)
-function generateSuggestions() {
-    var str = document.getElementById("search-text").value.toLowerCase();
-
-    //Empties and then repopulates the suggestions array with all theaters
-    suggestions = [];
-    for (let i = 0; i < theatreList.length; i++) {
-        suggestions.push(theatreList[i]);
-    }
-
-    //If the search box value is already matching an actual theatre name the suggestions list will be empty.
-    for (let i = 0; i < suggestions.length; i++) {
-        if (str == suggestions[i].name) {
-            suggestions = [];
-            return;
-        }
-    }
-
-    //Iterates the suggestions array and removes the elements whose name doesn't start with the entered search string
-    for (let j = 0; j < suggestions.length; j++) {
-        if (str != suggestions[j].name.substring(0, str.length).toLowerCase()) {
-            suggestions.splice(j, 1);
-            j--;
-        }
-    }
-}
-
-//Inserts the search suggestions into the datalist
-function showSuggestions() {
-    var results = document.getElementById("theatres");
-    results.innerHTML = "";
-
-    for (var i = 0; i < suggestions.length; i++) {
-        results.innerHTML += "<option value='" + suggestions[i].name + "'>";
-    }
 }
