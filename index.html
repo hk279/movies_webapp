@@ -6,27 +6,26 @@
         </style>
         <title>Movies Webapp</title>
         <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="movies_webapp_style.css" rel="stylesheet" />
     </head>
     <body onload="generateSuggestions()">
-        <header></header>
+        <header>
+            <img id="logo" src="finnkino-logo.png"></img>
+            <h1 id="header">LiteSearch</h1>
+        </header>
         <div id="search-div">
-            <form>
-                <div id="autocomplete">
-                    <input
-                        id="search-text"
-                        list="theatres"
-                        name="search"
-                        placeholder="Search"
-                        autocomplete="off"
-                        onkeyup="generateSuggestions()"
-                    >
-                        <datalist id="theatres"></datalist>
-                    </input>
-                </div>
-            </form>
+            <input
+                id="search-text"
+                list="theatres"
+                name="search"
+                placeholder="Search or choose a theatre from the list"
+                autocomplete="off"
+                onkeyup="generateSuggestions()"
+            >
+                <datalist id="theatres"></datalist>
+            </input>
             <input type="date" name="date" id="date">
-            <br>
             <button id="search-button" value="Search" onclick="getShows()">
                 Search
             </button>

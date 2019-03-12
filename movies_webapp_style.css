@@ -2,28 +2,76 @@ body {
     font-family: 'Raleway', sans-serif;
     background: #475F55;
 }
+header {
+    text-align: center;
+    margin: 1em;
+    background: #DCD18A;
+    padding: 1em;
+}
+#logo {
+    max-width: 200px;
+}
+#header {
+    margin-top: 0em;
+}
 #search-div {
     background: #98A680;
+    margin: 1em;
+    text-align: center;
+}
+input {
+    margin: 1em 2em;
+    padding: 1em;
+    font-family : inherit;
+    border-radius: 0.5em;
+    width: 30em;
+}
+#date {
+    width: 10em;
+}
+#search-button {
+    margin: 1em 2em;
+    padding: 1em;
+    font-family : inherit;
+    border-radius: 0.5em;
+    font-weight: bold;
+    background:  #DCD18A;
 }
 #search-results {
     background: #98A680;
-}
-input {
     margin: 1em;
+    padding: 1em;
+    display: none;
 }
-select {
-    margin: 1em;
-}
-#autocomplete {
-    position: relative;
-}
-#search-button {
-    margin: 1em;
+table {
+    margin: auto;
 }
 td {
-    padding: 1em;
-}
-.start-time {
+    padding: 1em 3em;
     font-size: 1.5em;
     font-weight: bold;
+}
+.start-time {
+    font-size: 2em;
+    background: #CD5D31;
+    border-radius: 0.5em;
+}
+
+@media only screen and (max-width: 900px) {
+    #logo {
+        max-width: 100px;
+    }
+    h1 {
+        font-size: 1.5em;
+    }
+    input {
+        width: 10em;
+    }
+    td {
+        padding: 0.5em 1.5em;
+        font-size: 0.75em;
+    }
+    .start-time {
+        font-size: 1em;
+    }
 }

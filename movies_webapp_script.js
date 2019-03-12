@@ -4,7 +4,7 @@ var suggestions = [];
 
 //XMLHttp request for the theatres and theatre areas.
 var xmlhttp = new XMLHttpRequest();
-xmlhttp.open("GET", "http://www.finnkino.fi/xml/TheatreAreas/", true);
+xmlhttp.open("GET", "https://www.finnkino.fi/xml/TheatreAreas/", true);
 xmlhttp.send();
 xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
@@ -29,11 +29,12 @@ xmlhttp.onreadystatechange = function() {
             };
             theatreList.push(theatre);
         }
+        //Fills out the list with all theatres in the beginning.
         generateSuggestions();
     }
 };
 
-//Generates the list of search suggestions based on written input (for example "esp" -> Espoo, Espoo: OMENA, Espoo: Sello)
+//Generates the list of autocomplete suggestions based on written input (for example "esp" -> Espoo, Espoo: OMENA, Espoo: Sello)
 function generateSuggestions() {
     var str = document.getElementById("search-text").value.toLowerCase();
 
@@ -61,6 +62,8 @@ function generateSuggestions() {
 }
 
 function getShows() {
+    document.getElementById("search-results").style.display = "block";
+
     var theatreName = document.getElementById("search-text").value;
     var date = document.getElementById("date").value;
 
