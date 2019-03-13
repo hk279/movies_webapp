@@ -73,7 +73,7 @@ table {
     margin: auto;
 }
 td {
-    padding: 1em 3em;
+    padding: 0.5em 2.5em;
     font-size: 1.5em;
     font-weight: bold;
 }
@@ -90,7 +90,34 @@ td {
     background: #dcd18a;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1100px) {
+    #logo {
+        max-width: 150px;
+    }
+    h1 {
+        font-size: 1.5em;
+    }
+    #search-div {
+        padding: 1em;
+        margin: 0em, 0.5em;
+    }
+    #search-results {
+        margin-left: 0.5em;
+        margin-right: 0.5em;
+    }
+    td {
+        padding: 0.5em 2em;
+        font-size: 1em;
+    }
+    .start-time {
+        font-size: 1.5em;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    body{
+        background: #475f55;
+    }
     #logo {
         max-width: 100px;
     }
@@ -99,6 +126,11 @@ td {
     }
     #search-div {
         padding: 1em;
+        margin: 0em, 0.5em;
+    }
+    #search-results {
+        margin-left: 0.5em;
+        margin-right: 0.5em;
     }
     input {
         width: 10em;
@@ -109,5 +141,8 @@ td {
     }
     .start-time {
         font-size: 1em;
+    }
+    .tickets {
+        padding: 0.75em;
     }
 }
