@@ -82,6 +82,13 @@ td {
     background: #cd5d31;
     border-radius: 0.5em;
 }
+.tickets {
+    padding: 1em;
+    font-family: inherit;
+    border-radius: 0.5em;
+    font-weight: bold;
+    background: #dcd18a;
+}
 
 @media only screen and (max-width: 900px) {
     #logo {

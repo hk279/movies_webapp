@@ -3,10 +3,9 @@ var xmlhttp = new XMLHttpRequest();
 xmlhttp.open("GET", "https://www.finnkino.fi/xml/TheatreAreas/", true);
 xmlhttp.send();
 xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
         var xmlDoc = xmlhttp.responseXML;
-        var theatreAreaElements = [];
-        theatreAreaElements = xmlDoc.getElementsByTagName("TheatreArea");
+        var theatreAreaElements = xmlDoc.getElementsByTagName("TheatreArea");
         for (var i = 0; i < theatreAreaElements.length; i++) {
             var theatre = {
                 name: theatreAreaElements[i].childNodes[1].childNodes[0].nodeValue,
@@ -17,7 +16,7 @@ xmlhttp.onreadystatechange = function() {
     }
 };
 
-var shows = [];
+/* var shows = [];
 var xmlhttp2 = new XMLHttpRequest();
 xmlhttp2.open("GET", "http://www.finnkino.fi/xml/Schedule/", true);
 xmlhttp2.send();
@@ -37,5 +36,8 @@ xmlhttp2.onreadystatechange = function() {
 
         document.getElementById("xml").innerHTML = "<p>" + theatreList + "</p>";
     }
-};
+}; */
+function generateSuggestions() {
+
+}
 
