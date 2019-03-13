@@ -23,16 +23,18 @@ xmlhttp.onreadystatechange = function() {
         }
 
         for (var j = 0; j < theatreIds.length; j++) {
-            var theatre = {
-                id: theatreIds[j],
-                name: theatreNames[j]
-            };
-            theatreList.push(theatre);
+            if (theatreNames[j].includes(":")) {
+                var theatre = {
+                    id: theatreIds[j],
+                    name: theatreNames[j]
+                };
+                theatreList.push(theatre);
+            }
         }
-        //Fills out the list with all theatres in the beginning.
-        generateSuggestions();
     }
-};
+    //Fills out the list with all theatres in the beginning.
+    generateSuggestions();
+    };
 
 //Generates the list of autocomplete suggestions based on written input (for example "esp" -> Espoo, Espoo: OMENA, Espoo: Sello)
 function generateSuggestions() {

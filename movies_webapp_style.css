@@ -1,12 +1,34 @@
 body {
-    font-family: 'Raleway', sans-serif;
-    background: #475F55;
+    font-family: "Raleway", sans-serif;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#475f55+0,98a680+25,98a680+76,475f55+100 */
+    background: -moz-linear-gradient(
+        left,
+        #475f55 0%,
+        #98a680 25%,
+        #98a680 76%,
+        #475f55 100%
+    ); /* FF3.6-15 */
+    background: -webkit-linear-gradient(
+        left,
+        #475f55 0%,
+        #98a680 25%,
+        #98a680 76%,
+        #475f55 100%
+    ); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(
+        to right,
+        #475f55 0%,
+        #98a680 25%,
+        #98a680 76%,
+        #475f55 100%
+    ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    margin: 0em;
 }
 header {
     text-align: center;
-    margin: 1em;
-    background: #DCD18A;
+    background: #dcd18a;
     padding: 1em;
+    border-bottom: 3px solid black;
 }
 #logo {
     max-width: 200px;
@@ -15,14 +37,14 @@ header {
     margin-top: 0em;
 }
 #search-div {
-    background: #98A680;
-    margin: 1em;
+    margin: 0em 1em;
+    padding: 2em;
     text-align: center;
 }
 input {
     margin: 1em 2em;
     padding: 1em;
-    font-family : inherit;
+    font-family: inherit;
     border-radius: 0.5em;
     width: 30em;
 }
@@ -32,16 +54,20 @@ input {
 #search-button {
     margin: 1em 2em;
     padding: 1em;
-    font-family : inherit;
+    font-family: inherit;
     border-radius: 0.5em;
     font-weight: bold;
-    background:  #DCD18A;
+    background: #dcd18a;
 }
 #search-results {
-    background: #98A680;
     margin: 1em;
+    margin-top: 0em;
     padding: 1em;
     display: none;
+    text-align: center;
+}
+p {
+    font-weight: bold;
 }
 table {
     margin: auto;
@@ -53,7 +79,7 @@ td {
 }
 .start-time {
     font-size: 2em;
-    background: #CD5D31;
+    background: #cd5d31;
     border-radius: 0.5em;
 }
 
@@ -63,6 +89,9 @@ td {
     }
     h1 {
         font-size: 1.5em;
+    }
+    #search-div {
+        padding: 1em;
     }
     input {
         width: 10em;
