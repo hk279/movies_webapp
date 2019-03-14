@@ -1,6 +1,5 @@
 var shows = [];
 var theatreList = [];
-var suggestions = [];
 
 /* XMLHttp request for the theatres and theatre areas. Generates theatre objects based on 
 the received data and pushes them to the theatre list. */
@@ -35,36 +34,10 @@ xmlhttp.onreadystatechange = function() {
         }
     }
     //Fills out the list with all theatres in the beginning.
-    generateSuggestions();
+    for (var i = 0; i < theatreList.length; i++) {
+        document.getElementById("theatres").innerHTML += "<option value='" + theatreList[i].name + "'>";
+    }
 };
-
-/* Generates the list of autocomplete suggestions based on written input 
-(for example "esp" -> Espoo, Espoo: OMENA, Espoo: Sello) */
-function generateSuggestions() {
-    var str = document.getElementById("search-text").value.toLowerCase();
-
-    //Empties and then repopulates the suggestions array with all theaters
-    suggestions = [];
-    for (let i = 0; i < theatreList.length; i++) {
-        suggestions.push(theatreList[i]);
-    }
-
-    //Iterates the suggestions array and removes the elements whose name doesn't start with the entered search string
-    for (let j = 0; j < suggestions.length; j++) {
-        if (str != suggestions[j].name.substring(0, str.length).toLowerCase()) {
-            suggestions.splice(j, 1);
-            j--;
-        }
-    }
-
-    //Inserts the search suggestions into the datalist
-    var results = document.getElementById("theatres");
-    results.innerHTML = "";
-
-    for (var i = 0; i < suggestions.length; i++) {
-        results.innerHTML += "<option value='" + suggestions[i].name + "'>";
-    }
-}
 
 function getShows() {
     var theatreName = document.getElementById("search-text").value;
