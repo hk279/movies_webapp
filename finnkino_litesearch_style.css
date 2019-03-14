@@ -46,7 +46,7 @@ input {
     padding: 1em;
     font-family: inherit;
     border-radius: 0.5em;
-    width: 30em;
+    width: 20em;
 }
 #date {
     width: 10em;
@@ -131,9 +131,6 @@ td {
     #search-results {
         margin-left: 0.5em;
         margin-right: 0.5em;
-    }
-    input {
-        width: 10em;
     }
     td {
         padding: 0.5em 1.5em;

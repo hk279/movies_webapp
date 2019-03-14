@@ -7,7 +7,7 @@
         <title>Movies Webapp</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="movies_webapp_style.css" rel="stylesheet" />
+        <link href="finnkino_litesearch_style.css" rel="stylesheet" />
     </head>
     <body onload="generateSuggestions()">
         <header>
@@ -25,7 +25,7 @@
             >
                 <datalist id="theatres"></datalist>
             </input>
-            <input type="date" name="date" id="date">
+            <input type="text" name="date" id="date" placeholder="Date" onfocus="(this.type='date')" onblur="(this.type='text')">
             <button id="search-button" onclick="getShows()">
                 Search
             </button>
@@ -37,5 +37,5 @@
             </table>
         </div>
     </body>
-    <script src="movies_webapp_script.js"></script>
+    <script src="finnkino_litesearch_script.js"></script>
 </html>
