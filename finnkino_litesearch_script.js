@@ -35,10 +35,14 @@ xmlhttp.onreadystatechange = function() {
     }
     //Fills out the list with all theatres in the beginning.
     for (var i = 0; i < theatreList.length; i++) {
-        document.getElementById("theatres").innerHTML += "<option value='" + theatreList[i].name + "'>";
+        document.getElementById("theatres").innerHTML +=
+            "<option value='" + theatreList[i].name + "'>";
     }
 };
 
+/*This function is ran when the user clicks the search button. First it checks the validity of the inputs.
+If the input is valid, it forms the xmlHttp request and creates show objects based on the received data.
+The shows list is populated with the created objects. After this is completed, it runs the function showResults()*/
 function getShows() {
     var theatreName = document.getElementById("search-text").value;
     var date = document.getElementById("date").value;
@@ -133,8 +137,11 @@ function showResults() {
             shows[i].movieTitle +
             "</td><td><img src='" +
             shows[i].imageUrl +
-            "'></img></td><td><button type='button' class='tickets' onclick=\"window.open('" + 
-            shows[i].ticketsUrl + 
+            "'></img></td><td><button type='button' class='tickets' onclick=\"window.open('" +
+            shows[i].ticketsUrl +
             "')\">Tickets</button></td></tr>";
     }
+
+    //jquery effect for showing the results
+    $("#search-results-table").fadeIn("slow");
 }

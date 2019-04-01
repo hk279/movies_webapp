@@ -29,6 +29,7 @@ header {
     background: #dcd18a;
     padding: 1em;
     border-bottom: 3px solid black;
+    display: none;
 }
 #logo {
     max-width: 200px;
@@ -58,6 +59,7 @@ input {
     border-radius: 0.5em;
     font-weight: bold;
     background: #dcd18a;
+    cursor: pointer;
 }
 #search-results {
     margin: 1em;
@@ -65,6 +67,9 @@ input {
     padding: 1em;
     display: none;
     text-align: center;
+}
+#search-results-table {
+    display: none;
 }
 p {
     font-weight: bold;
@@ -88,6 +93,7 @@ td {
     border-radius: 0.5em;
     font-weight: bold;
     background: #dcd18a;
+    cursor: pointer;
 }
 
 @media only screen and (max-width: 1100px) {
